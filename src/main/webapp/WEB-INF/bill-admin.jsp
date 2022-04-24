@@ -113,7 +113,7 @@
                           </td>
                           <td>
                             <button class="btn btn-block btn-outline-primary btn-sm">
-                              <a href="">Update</a>
+                              <a href="<c:out value="${pageContext.request.contextPath}/AddBill?ID=${tempBill.id}"/>">Update</a>
                             </button>
                           </td>
                         </tr>

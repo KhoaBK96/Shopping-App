@@ -154,7 +154,22 @@ public class BillRepository implements IBillRepository {
 	}
 
 	@Override
-	public void update(Bill object) {				
+	public void update(Bill object) throws SQLException {				
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Update bill set userId=?, date=? where id=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, object.getUser().getId());
+			statement.setDate(2, object.getDate());
+			statement.setInt(3, object.getId());
+			statement.execute();
+			
+		}finally {
+			close(connection, statement, null);
+		}
 	}
 
 	@Override
@@ -186,8 +201,21 @@ public class BillRepository implements IBillRepository {
 			close(connection, statement, null);
 		}
 	}
-	public void updateBillDetail(BillDetail billDetail) {
-			
+	public void updateBillDetail(BillDetail billDetail) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Update billdetail set productQuantity=? where billId=? and productId=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, billDetail.getProductQuantity());
+			statement.setInt(2, billDetail.getBill().getId());
+			statement.setInt(3, billDetail.getProduct().getId());
+			statement.execute();						
+		}finally {
+			close(connection, statement, null);
+		}
 	}
 	public List<BillTotalDTO> getAllTotal(){
 		

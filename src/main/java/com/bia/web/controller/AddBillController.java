@@ -43,6 +43,7 @@ public class AddBillController extends HttpServlet {
 		
 		try {
 			loadUser(request, response);
+			loadBill(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,6 +52,14 @@ public class AddBillController extends HttpServlet {
 	}
 
 	
+	private void loadBill(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		int id = NumberTools.parseIntWithFallback(request.getParameter("ID"));
+		Bill bill = billService.getById(id);
+		
+		request.setAttribute("UPDATE_BILL", bill);
+	}
+
+
 	private void loadUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		
 		List<User> users = new ArrayList<>();
@@ -87,7 +96,11 @@ public class AddBillController extends HttpServlet {
 		
 		Bill bill = new Bill(id, user, date, billDetails);
 		
-		billService.add(bill);
+		if(id > 0 ) {
+			billService.update(bill);
+		}else {
+			billService.add(bill);
+		}
 		
 		response.sendRedirect(request.getContextPath()+"/BillList");
 		

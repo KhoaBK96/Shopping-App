@@ -68,25 +68,25 @@
             <li class="nav-item">
               <a href="UserList" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>User Admin</p>
+                <p>User </p>
               </a>
             </li>
             <li class="nav-item">
               <a href="BillList" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Bill Admin</p>
+                <p>Bill </p>
               </a>
             </li>
             <li class="nav-item">
               <a href="CategoryList" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Category Admin</p>
+                <p>Category</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="ProductList" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Product Admin</p>
+                <p>Product </p>
               </a>
             </li>
           </ul>

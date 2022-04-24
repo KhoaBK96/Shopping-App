@@ -43,7 +43,7 @@
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="<c:out value="${pageContext.request.contextPath}/BillList"/>">Home</a></li>
                   <li class="breadcrumb-item active">General Form</li>
-                </ol>
+                </ol>U
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@
 						  <label>User</label>
 						  <select class="form-control" name="userId">
 						  	<c:forEach var="tempUser" items="${USER_LIST}">
-						    	<option value="<c:out value="${tempUser.id}"/>"><c:out value="${tempUser.name}"/></option>
+						    	<option value="<c:out value="${tempUser.id}"/>" <c:if test = "${UPDATE_BILL.user.id == tempUser.id}">selected</c:if> ><c:out value="${tempUser.name}"/></option>
 						    </c:forEach>
 						  </select>
 					  </div>  

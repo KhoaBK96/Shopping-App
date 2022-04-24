@@ -38,8 +38,8 @@ public class BillService implements IBillService {
 	}
 
 	@Override
-	public void update(Bill object) {
-		// TODO Auto-generated method stub
+	public void update(Bill object) throws SQLException {
+		billRepository.update(object);
 		
 	}
 
@@ -57,7 +57,7 @@ public class BillService implements IBillService {
 		billRepository.addBillDetail(billDetail);
 	}
 	
-	public void updateBillDetail(BillDetail billDetail) {
+	public void updateBillDetail(BillDetail billDetail) throws SQLException {
 		billRepository.updateBillDetail(billDetail);;
 	}
 
