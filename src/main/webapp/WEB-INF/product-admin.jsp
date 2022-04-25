@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Shopping App | Product</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -36,6 +36,8 @@
     />
     <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.min.css" />
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/d219c09b4c.js" crossorigin="anonymous"></script>
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -106,9 +108,10 @@
                           <td><c:out value="${tempProduct.image}"/></td>
                           <td><c:out value="${tempProduct.category.name}"/></td>
                           <td>
-                            <button class="btn btn-block btn-outline-primary btn-sm">
-                              <a href="<c:out value="${pageContext.request.contextPath}/AddProduct?ID=${tempProduct.id}"/>">Update</a>
-                            </button>
+                            
+                            <a class="btn btn-block bg-gradient-warning btn-sm" href="<c:out value="${pageContext.request.contextPath}/AddProduct?ID=${tempProduct.id}"/>"><i class="fa-solid fa-pen-to-square"></i></a>
+                           
+                            <a class="btn btn-block bg-gradient-danger btn-sm" href="<c:out value="${pageContext.request.contextPath}/DeleteProduct?ID=${tempProduct.id}"/>" ><i class="fa-solid fa-trash-can"></i></a>
                           </td>
                         </tr>
                         </c:forEach>

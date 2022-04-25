@@ -2,7 +2,9 @@ package com.bia.web.service;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
+import com.bia.web.dto.BillTotalDTO;
 import com.bia.web.model.Bill;
 import com.bia.web.model.BillDetail;
 import com.bia.web.model.Product;
@@ -44,8 +46,8 @@ public class BillService implements IBillService {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws SQLException {
+		billRepository.delete(id);
 		
 	}
 	
@@ -59,6 +61,12 @@ public class BillService implements IBillService {
 	
 	public void updateBillDetail(BillDetail billDetail) throws SQLException {
 		billRepository.updateBillDetail(billDetail);;
+	}
+	
+	public List<BillTotalDTO> getAllTotal() throws SQLException{
+		
+		return billRepository.getAllTotal();
+		
 	}
 
 }

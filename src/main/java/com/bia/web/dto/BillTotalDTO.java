@@ -7,6 +7,14 @@ public class BillTotalDTO {
 	private double total;
 	
 	private Bill bill;
+	
+	
+
+	public BillTotalDTO(double total, Bill bill) {
+		super();
+		this.total = total;
+		this.bill = bill;
+	}
 
 	public double getTotal() {
 		return total;

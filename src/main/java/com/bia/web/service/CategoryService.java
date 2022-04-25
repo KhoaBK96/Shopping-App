@@ -39,8 +39,8 @@ public class CategoryService implements ICategoryService {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws SQLException {
+		categoryRepository.delete(id);
 		
 	}
 	

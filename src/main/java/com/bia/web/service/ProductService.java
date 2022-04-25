@@ -41,8 +41,8 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws SQLException {
+		productRepository.delete(id);
 		
 	}
 	

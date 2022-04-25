@@ -39,9 +39,8 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+	public void delete(int id) throws SQLException {
+		userRepository.delete(id);		
 	}
 	
 }

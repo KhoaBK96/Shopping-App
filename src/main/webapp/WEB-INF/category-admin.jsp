@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Shopping App | Category</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -36,6 +36,8 @@
     />
     <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.min.css" />
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/d219c09b4c.js" crossorigin="anonymous"></script>
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -96,14 +98,13 @@
                       </thead>
                       <tbody>
                       <c:forEach var="tempCategory" items="${CATEGORY_LIST}">
-                        <tr>
-                      
-                          <td><c:out value="${tempCategory.name}"/></td>
-                         
-                          <td>
-                            <button class="btn btn-block btn-outline-primary btn-sm">
-                              <a href="<c:out value="${pageContext.request.contextPath}/AddCategory?ID=${tempCategory.id}"/>">Update</a>
-                            </button>
+                        <tr>                     
+                          <td><c:out value="${tempCategory.name}"/></td>                       
+                          <td> 
+                          	                      
+                              <a class="btn btn-block bg-gradient-warning btn-sm" href="<c:out value="${pageContext.request.contextPath}/AddCategory?ID=${tempCategory.id}"/>"><i class="fa-solid fa-pen-to-square"></i></a>
+                              <a class="btn btn-block bg-gradient-danger btn-sm" href="<c:out value="${pageContext.request.contextPath}/DeleteCategory?ID=${tempCategory.id}"/>"><i class="fa-solid fa-trash-can"></i></a>                           
+                         	
                           </td>
                         </tr>
                         </c:forEach>

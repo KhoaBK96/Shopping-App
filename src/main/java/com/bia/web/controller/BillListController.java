@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bia.web.dto.BillTotalDTO;
 import com.bia.web.model.Bill;
 import com.bia.web.repository.BillRepository;
 import com.bia.web.service.BillService;
@@ -33,6 +34,7 @@ public class BillListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			listBill(request, response);
+			listTotal(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,6 +42,17 @@ public class BillListController extends HttpServlet {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/bill-admin.jsp");
 		dispatcher.forward(request, response);
+	}
+
+
+	private void listTotal(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+		
+		List<BillTotalDTO> billTotalDTOs = new ArrayList<>();
+		
+		billTotalDTOs = billService.getAllTotal();
+		
+		request.setAttribute("BILLTOTALDTO", billTotalDTOs);
+		
 	}
 
 

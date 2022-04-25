@@ -51,7 +51,8 @@ public class BillRepository implements IBillRepository {
 					+ "inner join user u "
 					+ "on b.userId = u.id "
 					+ "left join billdetail bd "
-					+ "on b.id = bd.billId";
+					+ "on b.id = bd.billId "
+					+ "where b.deleted=0";
 			statement = connection.createStatement();
 			result = statement.executeQuery(sql);
 			HashMap<Integer, Bill> billMap = new HashMap<>(); // {}
@@ -116,7 +117,7 @@ public class BillRepository implements IBillRepository {
 					+ "on b.userId = u.id\r\n"
 					+ "left join billdetail bd\r\n"
 					+ "on b.id = bd.billId\r\n "
-					+ "where b.id=?";
+					+ "where b.id=? and b.deleted=0";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			result = statement.executeQuery();
@@ -173,8 +174,18 @@ public class BillRepository implements IBillRepository {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub		
+	public void delete(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Update bill set deleted=1 where id=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.execute();
+		}finally {
+			close(connection, statement, null);
+		}
 	}
 	
 	public void addBillDetail(BillDetail billDetail) throws SQLException {
@@ -217,9 +228,37 @@ public class BillRepository implements IBillRepository {
 			close(connection, statement, null);
 		}
 	}
-	public List<BillTotalDTO> getAllTotal(){
+	public List<BillTotalDTO> getAllTotal() throws SQLException{
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		List<BillTotalDTO> billTotals = new ArrayList<>();
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "select b.id, "
+					+ "sum(bd.productQuantity*bd.price) AS total "
+					+ "from bill b "
+					+ "left join billdetail bd "
+					+ "on b.id = bd.billId "
+					+ "where b.deleted=0 "
+					+ "group by b.id";
+			statement = connection.prepareStatement(sql);
+			result = statement.executeQuery();
+			while(result.next()) {
+				double total = result.getInt("total");
+				int billId = result.getInt("id");
+				
+				Bill bill = getById(billId);
+				
+				BillTotalDTO billTotal = new BillTotalDTO(total, bill);
+				
+				billTotals.add(billTotal);			
+			}
+		}finally {
+			close(connection, statement, null);
+		}
+		return billTotals;
 		
-		return null;	
 	}
 	private void close(Connection connection, Statement statement, ResultSet result) throws SQLException {
 		if(connection != null) {

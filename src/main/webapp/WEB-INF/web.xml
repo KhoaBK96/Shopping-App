@@ -74,6 +74,30 @@
   	<description></description>
   	<servlet-class>com.bia.web.controller.AddBillDetailController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DeleteUserController</servlet-name>
+  	<display-name>DeleteUserController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.DeleteUserController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteBillController</servlet-name>
+  	<display-name>DeleteBillController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.DeleteBillController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteCategoryController</servlet-name>
+  	<display-name>DeleteCategoryController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.DeleteCategoryController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteProductController</servlet-name>
+  	<display-name>DeleteProductController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.DeleteProductController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserListController</servlet-name>
   	<url-pattern>/UserList</url-pattern>
@@ -113,5 +137,21 @@
   <servlet-mapping>
   	<servlet-name>AddBillDetailController</servlet-name>
   	<url-pattern>/AddBillDetail</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteUserController</servlet-name>
+  	<url-pattern>/DeleteUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteBillController</servlet-name>
+  	<url-pattern>/DeleteBill</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteCategoryController</servlet-name>
+  	<url-pattern>/DeleteCategory</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteProductController</servlet-name>
+  	<url-pattern>/DeleteProduct</url-pattern>
   </servlet-mapping>
 </web-app>

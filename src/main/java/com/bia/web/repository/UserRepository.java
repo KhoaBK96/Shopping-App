@@ -23,8 +23,8 @@ public class UserRepository implements IUserRepository {
 		try {
 			connection = DbConnectProvide.getConnection();
 			String sql = "Insert into user "
-					+ "(name, email, password)"
-					+ "values(?, ?, ?)";
+					+ "(name, email, password, deleted)"
+					+ "values(?, ?, ?, 0)";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, object.getName());
 			statement.setString(2, object.getEmail());
@@ -45,7 +45,7 @@ public class UserRepository implements IUserRepository {
 		
 		try {
 			connection = DbConnectProvide.getConnection();
-			String sql ="Select id, name, email from user";
+			String sql ="Select id, name, email from user where deleted=0";
 			statement = connection.createStatement();
 			result = statement.executeQuery(sql);
 			while(result.next()) {
@@ -74,7 +74,7 @@ public class UserRepository implements IUserRepository {
 		User user = null;
 		try {
 			connection = DbConnectProvide.getConnection();
-			String sql = "Select name, email, password from user where id=?";
+			String sql = "Select name, email, password from user where id=? and deleted=0";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			result = statement.executeQuery();
@@ -114,8 +114,18 @@ public class UserRepository implements IUserRepository {
 		
 	}
 
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Update user set deleted=1 where id=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.execute();
+		}finally {
+			close(connection, statement, null);
+		}
 		
 	}
 	

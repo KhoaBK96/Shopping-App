@@ -42,7 +42,7 @@ public class CategoryRepository implements ICategoryRepository {
 		
 		try {
 			connection = DbConnectProvide.getConnection();
-			String sql ="Select id, name from category";
+			String sql ="Select id, name from category where deleted=0";
 			statement = connection.createStatement();
 			result = statement.executeQuery(sql);
 			while(result.next()) {
@@ -69,7 +69,7 @@ public class CategoryRepository implements ICategoryRepository {
 		Category category = null;
 		try {
 			connection = DbConnectProvide.getConnection();
-			String sql = "Select name from category where id=?";
+			String sql = "Select name from category where id=? and deleted=0";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			result = statement.executeQuery();
@@ -106,8 +106,18 @@ public class CategoryRepository implements ICategoryRepository {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Update category set deleted=1 where id=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.execute();
+		}finally {
+			close(connection, statement, null);
+		}
 		
 	}
 	

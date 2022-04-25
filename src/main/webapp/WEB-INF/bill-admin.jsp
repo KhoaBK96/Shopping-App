@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Shopping App | Bill</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -36,6 +36,8 @@
     />
     <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.min.css" />
+     <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/d219c09b4c.js" crossorigin="anonymous"></script>
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -95,31 +97,27 @@
                           <th>UserEmail</th>
                           <th>Total</th>
                           <th></th>
-                          <th></th>
+                         
                         </tr>
                       </thead>
                       <tbody>
-                      <c:forEach var="tempBill" items="${BILL_LIST}">
-                        <tr>
-                          
-                          <td><c:out value="${tempBill.date}"/></td>
-                          <td><c:out value="${tempBill.user.name}"/></td>
-                          <td><c:out value="${tempBill.user.email}"/></td>
-                          <td></td>	            
-                          <td>
-                            <button class="btn btn-block btn-outline-primary btn-sm">
-                              <a href="<c:out value="${pageContext.request.contextPath}/BillDetail?ID=${tempBill.id}"/>">Bill Detail</a>
-                            </button>
-                          </td>
-                          <td>
-                            <button class="btn btn-block btn-outline-primary btn-sm">
-                              <a href="<c:out value="${pageContext.request.contextPath}/AddBill?ID=${tempBill.id}"/>">Update</a>
-                            </button>
-                          </td>
-                        </tr>
-                        </c:forEach>
-                      </tbody>
-                     
+                     	 <c:forEach var="tempBillTotalDTO" items="${BILLTOTALDTO}">
+                       		 <tr>                       
+	                          <td><c:out value="${tempBillTotalDTO.bill.date}"/></td>
+	                          <td><c:out value="${tempBillTotalDTO.bill.user.name}"/></td>
+	                          <td><c:out value="${tempBillTotalDTO.bill.user.email}"/></td>
+	                          <td><c:out value="${tempBillTotalDTO.total}"/></td>            
+	                          <td>
+	                          
+	                              <a class="btn btn-block bg-gradient-info btn-sm" href="<c:out value="${pageContext.request.contextPath}/BillDetail?ID=${tempBillTotalDTO.bill.id}"/>"><i class="fa-solid fa-info"></i></a>                          
+	                            
+	                              <a class="btn btn-block bg-gradient-warning btn-sm" href="<c:out value="${pageContext.request.contextPath}/AddBill?ID=${tempBillTotalDTO.bill.id}"/>"><i class="fa-solid fa-pen-to-square"></i></a>
+	                           
+	                           	  <a class="btn btn-block bg-gradient-danger btn-sm" href="<c:out value="${pageContext.request.contextPath}/DeleteBill?ID=${tempBillTotalDTO.bill.id}"/>"><i class="fa-solid fa-trash-can"></i></a>	
+                          	  </td>                       
+                        	</tr>                    
+                    	</c:forEach>
+                      </tbody>                    
                     </table>
                   </div>
                   <!-- /.card-body -->

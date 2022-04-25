@@ -49,7 +49,8 @@ public class ProductRepository implements IProductRepository {
 			String sql ="Select pr.id, pr.name, pr.price, pr.image, pr.categoryId, ct.name as categoryName "
 					+ "from product pr "
 					+ "inner join category ct "
-					+ "on pr.categoryId = ct.id ";
+					+ "on pr.categoryId = ct.id "
+					+ "where pr.deleted=0";
 			statement = connection.createStatement();
 			result = statement.executeQuery(sql);
 			while(result.next()) {
@@ -82,7 +83,7 @@ public class ProductRepository implements IProductRepository {
 		Product product = null;
 		try {
 			connection = DbConnectProvide.getConnection();
-			String sql = "Select name, price, image, categoryId from product where id=?";
+			String sql = "Select name, price, image, categoryId from product where id=? and deleted=0";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			result = statement.executeQuery();
@@ -128,8 +129,18 @@ public class ProductRepository implements IProductRepository {
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Update product set deleted=1 where id=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.execute();
+		}finally {
+			close(connection, statement, null);
+		}
 		
 	}
 	

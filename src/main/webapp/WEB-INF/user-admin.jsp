@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Shopping App | User</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link
@@ -36,6 +36,9 @@
     />
     <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.min.css" />
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/d219c09b4c.js" crossorigin="anonymous"></script>
+    
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -88,25 +91,23 @@
                       class="table table-bordered table-hover"
                     >
                       <thead>
-                        <tr>
-                          
+                        <tr>                        
                           <th>Name</th>
-                          <th>Email</th>
-                         
+                          <th>Email</th>                       
+                          <th></th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
                       <c:forEach var="tempUser" items="${USER_LIST}">
-                        <tr>
-                          
+                        <tr>                          
                           <td><c:out value="${tempUser.name}"/></td>
-                          <td><c:out value="${tempUser.email}"/></td>
-                          
-                          <td>
-                            
-                              <a class="btn btn-block btn-outline-primary btn-sm" href="<c:out value="${pageContext.request.contextPath}/AddUser?ID=${tempUser.id}"/>" name="ID">Update</a>
-                            
+                          <td><c:out value="${tempUser.email}"/></td>                         
+                          <td>                           
+                              <a class="btn btn-block bg-gradient-warning btn-sm" href="<c:out value="${pageContext.request.contextPath}/AddUser?ID=${tempUser.id}"/>" ><i class="fa-solid fa-pen-to-square"></i></a>                           
+                          </td>
+                          <td>                           
+                              <a class="btn btn-block bg-gradient-danger btn-sm" href="<c:out value="${pageContext.request.contextPath}/DeleteUser?ID=${tempUser.id}"/>" ><i class="fa-solid fa-trash-can"></i></a>                           
                           </td>
                         </tr>
                         </c:forEach>
