@@ -41,7 +41,7 @@ public class ProductListController extends HttpServlet {
 			e.printStackTrace();
 		}	
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/product-admin.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/admin/product-admin.jsp");
 		dispatcher.forward(request, response);
 		
 	}

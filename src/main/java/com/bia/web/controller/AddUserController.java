@@ -37,7 +37,7 @@ public class AddUserController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add-user.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/admin/add-user.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

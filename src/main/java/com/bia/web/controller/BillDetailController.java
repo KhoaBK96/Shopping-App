@@ -47,7 +47,7 @@ public class BillDetailController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/bill-detail.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/admin/bill-detail.jsp");
 		dispatcher.forward(request, response);
 	}
 

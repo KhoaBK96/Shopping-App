@@ -46,7 +46,7 @@ public class AddProductController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add-product.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/admin/add-product.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

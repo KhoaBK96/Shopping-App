@@ -31,6 +31,13 @@ public class Product {
 		this.category = category;
 	}
 
+	public Product(int id, String name, double price, String image) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.image = image;
+	}
 
 	public int getId() {
 		return id;

@@ -39,7 +39,7 @@ public class UserListController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/user-admin.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/admin/user-admin.jsp");
 		dispatcher.forward(request, response);
 		
 	}

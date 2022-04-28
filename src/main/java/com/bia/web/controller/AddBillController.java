@@ -47,7 +47,7 @@ public class AddBillController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add-bill.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/admin/add-bill.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

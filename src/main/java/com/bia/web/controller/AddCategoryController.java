@@ -37,7 +37,7 @@ public class AddCategoryController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add-category.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/admin/add-category.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

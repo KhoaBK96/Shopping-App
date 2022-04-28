@@ -37,7 +37,7 @@ public class CategoryListController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/category-admin.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/admin/category-admin.jsp");
 		dispatcher.forward(request, response);
 	}
 

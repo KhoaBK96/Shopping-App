@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bia.web.dto.ShopDTO;
 import com.bia.web.model.Category;
 import com.bia.web.model.Product;
 
@@ -87,6 +88,7 @@ public class ProductRepository implements IProductRepository {
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			result = statement.executeQuery();
+			
 			if(result.next()) {
 
 				String name = result.getString("name");
@@ -95,6 +97,7 @@ public class ProductRepository implements IProductRepository {
 				int categoryId = result.getInt("categoryId");
 				
 				Category category = new Category(categoryId);
+				
 				product = new Product(id, name, price, image, category);
 			}
 		}finally {
@@ -144,6 +147,132 @@ public class ProductRepository implements IProductRepository {
 		
 	}
 	
+	public List<Product> showProduct(ShopDTO shopDTO) throws SQLException{
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		List<Product> products = new ArrayList<>();
+		try {
+			
+			connection = DbConnectProvide.getConnection();
+			String sql = "select p.id, p.name, p.price, p.image, p.categoryId, c.name as categoryName from product p join category c on p.categoryId = c.id "
+					+ "[WHERE_CLAUSE] "
+					+ "[ORDER_BY_CLAUSE] "
+					+ "[LIMIT_CLAUSE]";
+			List<String> whereConditions = new ArrayList<>();
+			int categoryId = shopDTO.getCategoryId();
+			
+			if(categoryId > 0) {
+				whereConditions.add("c.id="+categoryId);			
+			}
+			
+			if(shopDTO.getProductSearch() != null && shopDTO.getProductSearch().trim() != "") {
+				whereConditions.add("p.name like '%" + shopDTO.getProductSearch() + "%'");
+			}
+					
+			if(whereConditions.size() == 0) {
+				sql = sql.replace("[WHERE_CLAUSE]", "");
+				
+			} else {
+				sql = sql.replace("[WHERE_CLAUSE]"," where " + String.join(" and ", whereConditions));					
+			}
+			
+			String orderCondition = "";
+			
+			if(shopDTO.isSortType() == true) {
+				orderCondition = "asc";
+			}else {
+				orderCondition = "desc";
+			}
+			
+			if(orderCondition == "") {
+				sql = sql.replace("[ORDER_BY_CLAUSE]","");
+			} else {
+				sql = sql.replace("[ORDER_BY_CLAUSE]", " order by price " + orderCondition);
+			}
+					
+			sql = sql.replace("[LIMIT_CLAUSE]", "limit " + "9" + " offset " + getOffset(shopDTO.getPage(), 9) );
+					
+			// lay DTO va dat if cho string
+			statement = connection.prepareStatement(sql);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				
+				int id = result.getInt("id");
+				String name = result.getString("name");
+				double price = result.getDouble("price");
+				String image = result.getString("image");
+				int categoryID = result.getInt("categoryId");
+				
+				Category category = new Category(categoryID);
+						
+				Product product = new Product(id, name, price , image);
+				
+				products.add(product);
+			}
+			
+					
+		}finally {
+			close(connection, statement, result);
+		}
+				
+		return products;
+		
+	}
+	
+	public int getTotalProduct(ShopDTO shopDTO) throws SQLException{
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		List<Product> products = new ArrayList<>();
+		try {
+			
+			connection = DbConnectProvide.getConnection();
+			String sql = "select count(p.id) as size  from product p join category c on p.categoryId = c.id "
+					+ "[WHERE_CLAUSE] ";
+			
+			List<String> whereConditions = new ArrayList<>();
+			int categoryId = shopDTO.getCategoryId();
+			
+			if(categoryId > 0) {
+				whereConditions.add("c.id="+categoryId);			
+			}
+			
+			if(shopDTO.getProductSearch() != null && shopDTO.getProductSearch().trim() != "") {
+				whereConditions.add("p.name like '%" + shopDTO.getProductSearch() + "%'");
+			}
+					
+			if(whereConditions.size() == 0) {
+				sql = sql.replace("[WHERE_CLAUSE]", "");
+				
+			} else {
+				sql = sql.replace("[WHERE_CLAUSE]"," where " + String.join(" and ", whereConditions));					
+			}
+			
+			// lay DTO va dat if cho string
+			statement = connection.prepareStatement(sql);
+			result = statement.executeQuery();
+			while(result.next()) {
+				return result.getInt("size");
+				
+			}
+							
+		}finally {
+			close(connection, statement, result);
+		}
+				
+		return 0;
+		
+	}
+	
+	private int getOffset(int page, int itemPerPage) {
+		if (page < 1) {
+			page = 1;
+		}		
+		return itemPerPage * (page - 1);		
+	}
+	
 	private void close(Connection connection, Statement statement, ResultSet result) throws SQLException {
 		if(connection != null) {
 			connection.close();
@@ -155,5 +284,7 @@ public class ProductRepository implements IProductRepository {
 			result.close();
 		}	
 	}
+	
+	
 
 }

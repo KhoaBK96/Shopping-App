@@ -49,7 +49,7 @@ public class AddBillDetailController extends HttpServlet {
 		}
 		
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add-bill-detail.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/admin/add-bill-detail.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

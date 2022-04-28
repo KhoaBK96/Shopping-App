@@ -3,6 +3,7 @@ package com.bia.web.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.bia.web.dto.ShopDTO;
 import com.bia.web.model.Product;
 import com.bia.web.repository.ProductRepository;
 
@@ -43,7 +44,10 @@ public class ProductService implements IProductService {
 	@Override
 	public void delete(int id) throws SQLException {
 		productRepository.delete(id);
-		
+	}
+	
+	public List<Product> showProduct(ShopDTO shopDTO) throws SQLException {
+		return productRepository.showProduct(shopDTO);
 	}
 	
 	

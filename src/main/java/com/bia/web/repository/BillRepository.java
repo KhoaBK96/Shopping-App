@@ -260,6 +260,8 @@ public class BillRepository implements IBillRepository {
 		return billTotals;
 		
 	}
+	
+	
 	private void close(Connection connection, Statement statement, ResultSet result) throws SQLException {
 		if(connection != null) {
 			connection.close();
