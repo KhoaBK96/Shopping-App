@@ -113,6 +113,59 @@ public class UserRepository implements IUserRepository {
 		}
 		
 	}
+	
+	public User getUserByEmail(String userEmail) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		User user = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Select id, name, email, password from user where email=? and deleted = 0";
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, userEmail);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				int id = result.getInt("id");
+				String name = result.getString("name");
+				String email = result.getString("email");
+				String password = result.getString("password");
+				
+				user = new User(id, name, email, password);
+			}
+		} finally {
+			close(connection, statement, null);
+		}
+		return user;
+	}
+	
+	public User userSignin(String userEmail, String userPassword) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		User user = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Select id, name, email, password from user where email=? and password=? and deleted = 0";
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, userEmail);
+			statement.setString(2, userPassword);
+			result = statement.executeQuery();
+			
+			while(result.next()) {
+				int id = result.getInt("id");
+				String name = result.getString("name");
+				String email = result.getString("email");
+				String password = result.getString("password");
+				
+				user = new User(id, name, email, password);
+			}
+		} finally {
+			close(connection, statement, null);
+		}
+		return user;
+	}
 
 	public void delete(int id) throws SQLException {
 		Connection connection = null;

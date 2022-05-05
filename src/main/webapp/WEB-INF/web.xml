@@ -10,10 +10,7 @@
   	<description></description>
   	<filter-class>com.bia.web.filter.UnicodeFilter</filter-class>
   </filter>
-  <filter-mapping>
-  	<filter-name>UnicodeFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
-  </filter-mapping>
+
   <servlet>
   	<servlet-name>UserListController</servlet-name>
   	<display-name>UserListController</display-name>
@@ -104,6 +101,36 @@
   	<description></description>
   	<servlet-class>com.bia.web.controller.ShopController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SigninController</servlet-name>
+  	<display-name>SigninController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.SigninController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SignupController</servlet-name>
+  	<display-name>SignupController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.SignupController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SignoutController</servlet-name>
+  	<display-name>SignoutController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.SignoutController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddToCartController</servlet-name>
+  	<display-name>AddToCartController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.AddToCartController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ShoppingCartController</servlet-name>
+  	<display-name>ShoppingCartController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.ShoppingCartController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserListController</servlet-name>
   	<url-pattern>/UserList</url-pattern>
@@ -163,5 +190,25 @@
   <servlet-mapping>
   	<servlet-name>ShopController</servlet-name>
   	<url-pattern>/Shop</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SigninController</servlet-name>
+  	<url-pattern>/Signin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignupController</servlet-name>
+  	<url-pattern>/Signup</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignoutController</servlet-name>
+  	<url-pattern>/Signout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddToCartController</servlet-name>
+  	<url-pattern>/Shop/Cart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ShoppingCartController</servlet-name>
+  	<url-pattern>/Shoppingcart</url-pattern>
   </servlet-mapping>
 </web-app>

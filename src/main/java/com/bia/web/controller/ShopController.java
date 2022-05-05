@@ -94,6 +94,8 @@ public class ShopController extends HttpServlet {
 		
 		products = productService.showProduct(shopDTO);
 		
+		
+		
 		request.setAttribute("PRODUCT_LIST", products);
 		
 		request.setAttribute("SHOPDTO", shopDTO);

@@ -43,4 +43,13 @@ public class UserService implements IUserService {
 		userRepository.delete(id);		
 	}
 	
+	public User userSignin(String userName, String userPassword) throws SQLException{
+		return userRepository.userSignin(userName, userPassword);
+		
+	}
+	
+	public User getUserByEmail(String userEmail) throws SQLException{
+		return userRepository.getUserByEmail(userEmail);
+		
+	}
 }

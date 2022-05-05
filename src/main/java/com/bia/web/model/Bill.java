@@ -2,7 +2,6 @@ package com.bia.web.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class Bill {
@@ -26,6 +25,12 @@ public class Bill {
 	}
 	
 	
+	
+	public Bill() {
+		super();
+	}
+
+
 	public Bill(int id) {
 		super();
 		this.id = id;

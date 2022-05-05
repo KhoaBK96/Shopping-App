@@ -21,7 +21,7 @@ public class AddUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	 UserRepository userRepo;
-	    UserService userService;
+	 UserService userService;
 	
     public AddUserController() {
     	 userRepo = new UserRepository();

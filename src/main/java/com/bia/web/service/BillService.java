@@ -1,5 +1,6 @@
 package com.bia.web.service;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -8,6 +9,7 @@ import com.bia.web.dto.BillTotalDTO;
 import com.bia.web.model.Bill;
 import com.bia.web.model.BillDetail;
 import com.bia.web.model.Product;
+import com.bia.web.model.User;
 import com.bia.web.repository.BillRepository;
 import com.bia.web.repository.ProductRepository;
 
@@ -51,6 +53,10 @@ public class BillService implements IBillService {
 		
 	}
 	
+	public Bill getBill(User user) throws SQLException {
+		return billRepository.getBill(user);
+	}
+	
 	
 	public void addBillDetail(BillDetail billDetail) throws SQLException {
 		Product product = productService.getById(billDetail.getProduct().getId());
@@ -63,10 +69,12 @@ public class BillService implements IBillService {
 		billRepository.updateBillDetail(billDetail);;
 	}
 	
-	public List<BillTotalDTO> getAllTotal() throws SQLException{
-		
-		return billRepository.getAllTotal();
-		
+	public List<BillTotalDTO> getAllTotal() throws SQLException{		
+		return billRepository.getAllTotal();	
+	}
+	
+	public double getTotal(int billId) throws SQLException {
+		return billRepository.getTotal(billId);
 	}
 
 }

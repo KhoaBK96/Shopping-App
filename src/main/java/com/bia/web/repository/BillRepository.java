@@ -255,12 +255,63 @@ public class BillRepository implements IBillRepository {
 				billTotals.add(billTotal);			
 			}
 		}finally {
-			close(connection, statement, null);
+			close(connection, statement, result);
 		}
 		return billTotals;
 		
 	}
 	
+	public double getTotal(int billId) throws SQLException{
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		List<BillTotalDTO> billTotals = new ArrayList<>();
+		int total = 0;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "select b.id, "
+					+ "sum(bd.productQuantity*bd.price) AS total "
+					+ "from bill b "
+					+ "left join billdetail bd "
+					+ "on b.id = bd.billId "
+					+ "where b.deleted=0 and b.id=? "
+					+ "group by b.id";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, billId);
+			result = statement.executeQuery();
+			if(result.next()) {
+				total = result.getInt("total");									
+			}
+		}finally {
+			close(connection, statement, result);
+		}
+		return total;	
+	}
+	
+	
+	public Bill getBill(User user) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		Bill bill = null;
+		
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "select id, userId, date from bill where userId=? and deleted=0";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, user.getId());
+			result = statement.executeQuery();
+			if(result.next()) {
+				int id = result.getInt("id");
+				Date date = result.getDate("date");
+				bill = new Bill(id, user, date);
+			}
+		}finally {
+			close(connection, statement, result);
+		}
+		return bill;
+		
+	}
 	
 	private void close(Connection connection, Statement statement, ResultSet result) throws SQLException {
 		if(connection != null) {

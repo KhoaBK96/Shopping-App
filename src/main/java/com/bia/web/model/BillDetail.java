@@ -31,6 +31,12 @@ public class BillDetail {
 		this.product = product;
 		this.productQuantity = productQuantity;
 	}
+	
+	
+
+	public BillDetail() {
+		super();
+	}
 
 	public Bill getBill() {
 		return bill;

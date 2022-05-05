@@ -46,7 +46,7 @@
     <div class="offcanvas-menu-wrapper">
       <div class="offcanvas__option">
         <div class="offcanvas__links">
-          <a href="#">Sign in</a>
+          <a href="<c:out value="${context}/Signin"/>">Sign in</a>
           <a href="#">FAQs</a>
         </div>
         <div class="offcanvas__top__hover">
@@ -165,11 +165,14 @@
 		                  <div
 		                    class="product__item__pic set-bg"
 		                    data-setbg="<c:out value="${tempProduct.image}"/>"
-		                  >                  
+		                  >       
+		                  <ul class="product__hover">                           
+                                <li><a href="#"><img src="shop/img/icon/search.png" alt=""></a></li>
+                            </ul>           
 		                  </div>
 		                  <div class="product__item__text">
 		                    <h6><c:out value="${tempProduct.name}"/></h6>
-		                    <a href="#" class="add-cart">+ Add To Cart</a>		                
+		                    <a   href="<c:out value="${context}/Shop/Cart?addtocartID=${tempProduct.id}"/>" class="add-cart" >+ Add To Cart</a>		                
 		                    <h5><c:out value="${tempProduct.price}"/></h5>                  
 		                  </div>
 		                </div>	   
@@ -222,6 +225,6 @@
     <script src="shop/js/owl.carousel.min.js"></script>
     <script src="shop/js/main.js"></script>
   	<script src="shop/js/url.js"></script>
-   
+ 
   </body>
 </html>

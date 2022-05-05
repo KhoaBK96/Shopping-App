@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<c:set var="context" value="${pageContext.request.contextPath}" />
 <!-- Header Section Begin -->
 <header class="header">
   <div class="header__top">
@@ -13,8 +16,9 @@
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
             <div class="header__top__links">
-              <a href="#">Sign in</a>
-              <a href="#">FAQs</a>
+            	<c:if test="${sessionScope.USER != null}"><a href="<c:out value="${context}/Signout"/>">Sign out</a></c:if>
+	            <c:if test="${sessionScope.USER == null}"><a href="<c:out value="${context}/Signin"/>">Sign in</a></c:if>
+	            <a href="#">FAQs</a>
             </div>
             <div class="header__top__hover">
               <span>Usd <i class="arrow_carrot-down"></i></span>
@@ -46,7 +50,7 @@
               <ul class="dropdown">
                 <li><a href="./about.html">About Us</a></li>
                 <li><a href="./shop-details.html">Shop Details</a></li>
-                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                <li><a href="<c:out value="${context}/Shoppingcart"/>">Shopping Cart</a></li>
                 <li><a href="./checkout.html">Check Out</a></li>
                 <li><a href="./blog-details.html">Blog Details</a></li>
               </ul>
