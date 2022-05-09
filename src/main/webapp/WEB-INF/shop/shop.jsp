@@ -40,40 +40,6 @@
     <div id="preloder">
       <div class="loader"></div>
     </div>
-
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-      <div class="offcanvas__option">
-        <div class="offcanvas__links">
-          <a href="<c:out value="${context}/Signin"/>">Sign in</a>
-          <a href="#">FAQs</a>
-        </div>
-        <div class="offcanvas__top__hover">
-          <span>Usd <i class="arrow_carrot-down"></i></span>
-          <ul>
-            <li>USD</li>
-            <li>EUR</li>
-            <li>USD</li>
-          </ul>
-        </div>
-      </div>
-      <div class="offcanvas__nav__option">
-        <a href="#" class="search-switch"
-          ><img src="shop/img/icon/search.png" alt=""
-        /></a>
-        <a href="#"><img src="shop/img/icon/heart.png" alt="" /></a>
-        <a href="#"><img src="shop/img/icon/cart.png" alt="" /> <span>0</span></a>
-        <div class="price">$0.00</div>
-      </div>
-      <div id="mobile-menu-wrap"></div>
-      <div class="offcanvas__text">
-        <p>Free shipping, 30-day return or refund guarantee.</p>
-      </div>
-    </div>
-    <!-- Offcanvas Menu End -->
-
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
       <div class="container">
@@ -82,7 +48,7 @@
             <div class="breadcrumb__text">
               <h4>Shop</h4>
               <div class="breadcrumb__links">
-                <a href="#">Home</a>
+                <a href="<c:out value="${context}/Home"/>">Home</a>
                 <span>Shop</span>
               </div>
             </div>
@@ -167,13 +133,13 @@
 		                    data-setbg="<c:out value="${tempProduct.image}"/>"
 		                  >       
 		                  <ul class="product__hover">                           
-                                <li><a href="#"><img src="shop/img/icon/search.png" alt=""></a></li>
+                                <li><a href="<c:out value="${context}/ProductDetail?productID=${tempProduct.id}"/>"><img src="shop/img/icon/search.png" alt=""></a></li>
                             </ul>           
 		                  </div>
 		                  <div class="product__item__text">
 		                    <h6><c:out value="${tempProduct.name}"/></h6>
 		                    <a   href="<c:out value="${context}/Shop/Cart?addtocartID=${tempProduct.id}"/>" class="add-cart" >+ Add To Cart</a>		                
-		                    <h5><c:out value="${tempProduct.price}"/></h5>                  
+		                    <h5><c:out value="${tempProduct.price}"/>$</h5>                  
 		                  </div>
 		                </div>	   
 		               </div>            
@@ -194,7 +160,7 @@
     </section>
     <!-- Shop Section End -->
 	<!-- footer -->
-   <c:import url="include/footer.jsp" />
+   	<c:import url="include/footer.jsp" />
     <!-- Search Begin -->
     <div class="search-model">
       <div class="h-100 d-flex align-items-center justify-content-center">

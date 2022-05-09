@@ -18,16 +18,8 @@
             <div class="header__top__links">
             	<c:if test="${sessionScope.USER != null}"><a href="<c:out value="${context}/Signout"/>">Sign out</a></c:if>
 	            <c:if test="${sessionScope.USER == null}"><a href="<c:out value="${context}/Signin"/>">Sign in</a></c:if>
-	            <a href="#">FAQs</a>
-            </div>
-            <div class="header__top__hover">
-              <span>Usd <i class="arrow_carrot-down"></i></span>
-              <ul>
-                <li>USD</li>
-                <li>EUR</li>
-                <li>USD</li>
-              </ul>
-            </div>
+	           
+            </div>         
           </div>
         </div>
       </div>
@@ -37,37 +29,22 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a href="./index.html"><img src="shop/img/logo.png" alt="" /></a>
+          <a href="<c:out value="${context}/Home"/>"><img src="shop/img/logo.png" alt="" /></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li class="active"><a href="./shop.html">Shop</a></li>
-            <li>
-              <a href="#">Pages</a>
-              <ul class="dropdown">
-                <li><a href="./about.html">About Us</a></li>
-                <li><a href="./shop-details.html">Shop Details</a></li>
-                <li><a href="<c:out value="${context}/Shoppingcart"/>">Shopping Cart</a></li>
-                <li><a href="./checkout.html">Check Out</a></li>
-                <li><a href="./blog-details.html">Blog Details</a></li>
-              </ul>
-            </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contacts</a></li>
+            <li><a href="<c:out value="${context}/Home"/>">Home</a></li>
+            <li class="active"><a href="<c:out value="${context}/Shop"/>">Shop</a></li>
+            <li><a href="<c:out value="${context}/Contact"/>">Contacts</a></li>
           </ul>
         </nav>
       </div>
       <div class="col-lg-3 col-md-3">
         <div class="header__nav__option">
-          <a href="#" class="search-switch"
-            ><img src="shop/img/icon/search.png" alt=""
-          /></a>
-          <a href="#"><img src="shop/img/icon/heart.png" alt="" /></a>
-          <a href="#"><img src="shop/img/icon/cart.png" alt="" /> <span>0</span></a>
-          <div class="price">$0.00</div>
+          <a href="<c:out value="${context}/Shoppingcart"/>"><img src="shop/img/icon/cart.png" alt="" /> <span>0</span></a>
+          <div class="price"><c:out value="${TOTAL}"/>$</div>
         </div>
       </div>
     </div>

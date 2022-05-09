@@ -10,16 +10,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bia.web.dto.ShopDTO;
+import com.bia.web.model.Bill;
 import com.bia.web.model.Category;
 import com.bia.web.model.Page;
 import com.bia.web.model.Product;
+import com.bia.web.model.User;
+import com.bia.web.repository.BillRepository;
 import com.bia.web.repository.CategoryRepository;
 import com.bia.web.repository.ProductRepository;
+import com.bia.web.repository.UserRepository;
+import com.bia.web.service.BillService;
 import com.bia.web.service.CategoryService;
 import com.bia.web.service.PaginationService;
 import com.bia.web.service.ProductService;
+import com.bia.web.service.UserService;
 import com.bia.web.utils.NumberTools;
 
 /**
@@ -33,12 +40,20 @@ public class ShopController extends HttpServlet {
 	ProductRepository productRepo;
 	ProductService productService;
 	PaginationService paginationService;
+	UserRepository userRepo;
+	UserService userService;
+	BillRepository billRepo;
+	BillService billService;
     public ShopController() {
     	categoryRepo = new CategoryRepository();
         categoryService = new CategoryService(categoryRepo);
     	productRepo = new ProductRepository();
     	productService = new ProductService(productRepo);
     	paginationService = new PaginationService();
+    	userRepo = new UserRepository();
+        userService = new UserService(userRepo);
+        billRepo = new BillRepository();
+        billService = new BillService(billRepo);
     }
 
 
@@ -47,6 +62,7 @@ public class ShopController extends HttpServlet {
 		try {
 			listCategory(request, response);
 			showProduct(request, response);
+			showTotal(request, response);
 	
 		} catch (SQLException e) {			
 			e.printStackTrace();
@@ -55,6 +71,24 @@ public class ShopController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/shop/shop.jsp");
 		dispatcher.forward(request, response);
 	}
+
+	private void showTotal(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+			HttpSession session = request.getSession(true);
+			String email = (String) session.getAttribute("EMAIL");
+			
+			if(email != null) {
+				User user = userService.getUserByEmail(email);
+				
+				Bill bill = billService.getCurrentBill(user);
+				
+				int billId = bill.getId();
+				
+				double total = billService.getTotal(billId);
+				
+				request.setAttribute("TOTAL", total);	
+			}		
+		}
+		
 
 	private void listCategory(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		List<Category> categories= new ArrayList<>();

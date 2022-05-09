@@ -131,6 +131,42 @@
   	<description></description>
   	<servlet-class>com.bia.web.controller.ShoppingCartController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ShowTotalBillController</servlet-name>
+  	<display-name>ShowTotalBillController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.ShowTotalBillController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>HomeController</servlet-name>
+  	<display-name>HomeController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.HomeController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>BlogController</servlet-name>
+  	<display-name>BlogController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.BlogController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ContactController</servlet-name>
+  	<display-name>ContactController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.ContactController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CheckoutController</servlet-name>
+  	<display-name>CheckoutController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.CheckoutController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ProductDetailController</servlet-name>
+  	<display-name>ProductDetailController</display-name>
+  	<description></description>
+  	<servlet-class>com.bia.web.controller.ProductDetailController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserListController</servlet-name>
   	<url-pattern>/UserList</url-pattern>
@@ -210,5 +246,29 @@
   <servlet-mapping>
   	<servlet-name>ShoppingCartController</servlet-name>
   	<url-pattern>/Shoppingcart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ShowTotalBillController</servlet-name>
+  	<url-pattern>/ShowTotalBill</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>HomeController</servlet-name>
+  	<url-pattern>/Home</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BlogController</servlet-name>
+  	<url-pattern>/Blog</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ContactController</servlet-name>
+  	<url-pattern>/Contact</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CheckoutController</servlet-name>
+  	<url-pattern>/Checkout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ProductDetailController</servlet-name>
+  	<url-pattern>/ProductDetail</url-pattern>
   </servlet-mapping>
 </web-app>

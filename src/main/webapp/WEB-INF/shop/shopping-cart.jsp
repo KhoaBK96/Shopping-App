@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="shop/css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="shop/css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="shop/css/style.css" type="text/css" />
+    <script src="https://kit.fontawesome.com/d219c09b4c.js" crossorigin="anonymous"></script>
+    
   </head>
 
   <body>
@@ -36,39 +38,6 @@
     <div id="preloder">
       <div class="loader"></div>
     </div>
-
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-      <div class="offcanvas__option">
-        <div class="offcanvas__links">
-          <a href="#">Sign in</a>
-          <a href="#">FAQs</a>
-        </div>
-        <div class="offcanvas__top__hover">
-          <span>Usd <i class="arrow_carrot-down"></i></span>
-          <ul>
-            <li>USD</li>
-            <li>EUR</li>
-            <li>USD</li>
-          </ul>
-        </div>
-      </div>
-      <div class="offcanvas__nav__option">
-        <a href="#" class="search-switch"
-          ><img src="img/icon/search.png" alt=""
-        /></a>
-        <a href="#"><img src="shop/img/icon/heart.png" alt="" /></a>
-        <a href="#"><img src="shop/img/icon/cart.png" alt="" /> <span>0</span></a>
-        <div class="price">$0.00</div>
-      </div>
-      <div id="mobile-menu-wrap"></div>
-      <div class="offcanvas__text">
-        <p>Free shipping, 30-day return or refund guarantee.</p>
-      </div>
-    </div>
-    <!-- Offcanvas Menu End -->
-
     <!-- Header Section Begin -->
     <c:import url="include/header.jsp" />
     <!-- Header Section End -->
@@ -81,8 +50,8 @@
             <div class="breadcrumb__text">
               <h4>Shopping Cart</h4>
               <div class="breadcrumb__links">
-                <a href="./index.html">Home</a>
-                <a href="./shop.html">Shop</a>
+                <a href="<c:out value="${context}/Home"/>">Home</a>
+                <a href="<c:out value="${context}/Shop"/>">Shop</a>
                 <span>Shopping Cart</span>
               </div>
             </div>
@@ -116,18 +85,36 @@
                       </div>
                       <div class="product__cart__item__text">
                         <h6><c:out value="${tempBillDetail.product.name}"/></h6>
-                        <h5><c:out value="${tempBillDetail.price}"/></h5>
+                        <h5><c:out value="${tempBillDetail.price}"/>$</h5>
                       </div>
                     </td>
-                    <td class="quantity__item">
-                      <div class="quantity">
-                        <div class="pro-qty-2">
-                          <input type="text" value="<c:out value="${tempBillDetail.productQuantity}"/>" />
-                        </div>
+                    <td>
+                       <div class="row flex-container">              
+                        	<div class="flex-item" >
+	                        	<form method="post">
+	                        		<input type="hidden" value="<c:out value="${tempBillDetail.bill.id}"/>" name="billId">
+	                        		<input type="hidden" value="<c:out value="${tempBillDetail.product.id}"/>" name="productId">
+	                        		<input type="hidden" value="<c:out value="${tempBillDetail.productQuantity - 1}"/>" name="quantity">
+	                        		<button  class="center btn btn-light"  type="submit"><i class="fa-solid fa-angle-left fa-2xs"></i></button>
+	                        	</form>
+                        	</div>
+                        	<div class="flex-item ">
+                        		<h5 class="center"><c:out value="${tempBillDetail.productQuantity}"/></h5>
+                        	</div>
+                        	<div class="flex-item " >
+	                        	<form method="post" >
+	                        		<input type="hidden" value="<c:out value="${tempBillDetail.bill.id}"/>" name="billId">
+	                        		<input type="hidden" value="<c:out value="${tempBillDetail.product.id}"/>" name="productId">
+	                        		<input type="hidden" value="<c:out value="${tempBillDetail.productQuantity + 1}"/>" name="quantity">
+	                        		<button class="center btn btn-light" type="submit"><i class="fa-solid fa-angle-right fa-2xs"></i></button>
+	                        	</form>                        	                                         
+                      		</div>
                       </div>
                     </td>
-                    <td class="cart__price"></td>
-                    <td class="cart__close"><i class="fa fa-close"></i></td>
+                    <td class="cart__price"><c:out value="${tempBillDetail.price*tempBillDetail.productQuantity}"/>$</td>
+                    <td class="cart__close">
+                    <a href="<c:out value="${context}/Shoppingcart?removeID=${tempBillDetail.product.id}"/>"><i class="fa fa-close"></i></a>
+                    </td>
                   </tr>
                  </c:forEach>     
                 </tbody>
@@ -138,12 +125,7 @@
                 <div class="continue__btn">
                   <a href="#">Continue Shopping</a>
                 </div>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="continue__btn update__btn">
-                  <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
-                </div>
-              </div>
+              </div>            
             </div>
           </div>
           <div class="col-lg-4">
@@ -152,7 +134,7 @@
               <ul>
                 <li>Total <span><c:out value="${TOTAL}"/>$</span></li>
               </ul>
-              <a href="#" class="primary-btn">Proceed to checkout</a>
+              <a href="<c:out value="${context}/Checkout"/>" class="primary-btn">Proceed to checkout</a>
             </div>
           </div>
         </div>

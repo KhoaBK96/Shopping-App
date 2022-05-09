@@ -53,8 +53,8 @@ public class BillService implements IBillService {
 		
 	}
 	
-	public Bill getBill(User user) throws SQLException {
-		return billRepository.getBill(user);
+	public Bill getCurrentBill(User user) throws SQLException {
+		return billRepository.getCurrentBill(user);
 	}
 	
 	
@@ -63,6 +63,10 @@ public class BillService implements IBillService {
 		double price = product.getPrice();
 		billDetail.setPrice(price);
 		billRepository.addBillDetail(billDetail);
+	}
+	
+	public void deleteBillDetail(int productId) throws SQLException {
+		billRepository.deleteBillDetail(productId);
 	}
 	
 	public void updateBillDetail(BillDetail billDetail) throws SQLException {
@@ -75,6 +79,10 @@ public class BillService implements IBillService {
 	
 	public double getTotal(int billId) throws SQLException {
 		return billRepository.getTotal(billId);
+	}
+	
+	public void updateQuantity(int id, int quantity) throws SQLException{
+		billRepository.updateQuantity(id, quantity);
 	}
 
 }

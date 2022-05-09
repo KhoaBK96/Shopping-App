@@ -22,19 +22,22 @@ import com.bia.web.repository.UserRepository;
 import com.bia.web.service.BillService;
 import com.bia.web.service.ProductService;
 import com.bia.web.service.UserService;
-import com.bia.web.utils.NumberTools;
 
-
-public class ShoppingCartController extends HttpServlet {
+/**
+ * Servlet implementation class CheckoutController
+ */
+public class CheckoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-		 BillRepository billRepo;
-		 BillService billService;
-		 ProductRepository productRepo;
-		 ProductService productService;
-		 UserRepository userRepo;
-		 UserService userService;
-    
-    public ShoppingCartController() {
+	 BillRepository billRepo;
+	 BillService billService;
+	 ProductRepository productRepo;
+	 ProductService productService;
+	 UserRepository userRepo;
+	 UserService userService;
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CheckoutController() {
     	 billRepo = new BillRepository();
          billService = new BillService(billRepo);
          productRepo = new ProductRepository();
@@ -42,60 +45,23 @@ public class ShoppingCartController extends HttpServlet {
          userRepo = new UserRepository();
          userService = new UserService(userRepo);
     }
-    	
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			deleteBillDetail(request, response);
 			showBillDetails(request, response);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/shop/shopping-cart.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/shop/checkout.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-			try {
-				updateQuantity(request, response);								  
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}	
-			response.sendRedirect(request.getContextPath()+"/Shoppingcart");
-	}
-	private void updateQuantity(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		int quantity = NumberTools.parseIntWithFallback(request.getParameter("quantity"));
-		
-		if(quantity>0) {
-			int billId = NumberTools.parseIntWithFallback(request.getParameter("billId"));
-			int productId = NumberTools.parseIntWithFallback(request.getParameter("productId"));
-			
-			Bill bill = billService.getById(billId);
-			
-			Product product = productService.getById(productId);
-			
-			BillDetail billDetail = new BillDetail();
-			billDetail.setBill(bill);
-			billDetail.setProduct(product);
-			billDetail.setProductQuantity(quantity);
-			
-			billService.updateBillDetail(billDetail);
-		}						
-	}
-	private void deleteBillDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		int productId = NumberTools.parseIntWithFallback(request.getParameter("removeID"));
-		
-		billService.deleteBillDetail(productId);
-		
-		
-		
-	}
-
 	private void showBillDetails(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		List<BillDetail> billDetails = new ArrayList<>();
+List<BillDetail> billDetails = new ArrayList<>();
 		
 		HttpSession session = request.getSession(true);
 		String email = (String) session.getAttribute("EMAIL");
@@ -120,13 +86,23 @@ public class ShoppingCartController extends HttpServlet {
 			}
 			
 			request.setAttribute("BILLDETAIL_LIST", billDetails);
-					
+			
+			
+			
 			double total = billService.getTotal(billId);
 			
 			request.setAttribute("TOTAL", total);
 		}
 		
 	}
-	
-	
-}	
+			
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

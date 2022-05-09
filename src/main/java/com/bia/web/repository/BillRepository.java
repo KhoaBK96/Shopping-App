@@ -1,4 +1,4 @@
-package com.bia.web.repository;
+  package com.bia.web.repository;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -139,11 +139,10 @@ public class BillRepository implements IBillRepository {
 				if (productId != 0) {					
 					int productQuantity = result.getInt("productQuantity");
 					double price = result.getDouble("price");
-					
-					
+									
 					Product product = new Product(productId);
 					
-					BillDetail billDetail = new BillDetail(product, productQuantity, price);
+					BillDetail billDetail = new BillDetail(bill, product, productQuantity, price);
 					
 					bill.addBillDetail(billDetail);
 				}
@@ -228,6 +227,21 @@ public class BillRepository implements IBillRepository {
 			close(connection, statement, null);
 		}
 	}
+	
+	public void deleteBillDetail(int productId) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "Delete from billdetail where productId=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, productId);
+			statement.execute();
+		} finally {
+			close(connection, statement, null);
+		}
+	}
+	
 	public List<BillTotalDTO> getAllTotal() throws SQLException{
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -289,7 +303,7 @@ public class BillRepository implements IBillRepository {
 	}
 	
 	
-	public Bill getBill(User user) throws SQLException {
+	public Bill getCurrentBill(User user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -297,20 +311,38 @@ public class BillRepository implements IBillRepository {
 		
 		try {
 			connection = DbConnectProvide.getConnection();
-			String sql = "select id, userId, date from bill where userId=? and deleted=0";
+			String sql = "select id, userId, date from bill where userId=? and deleted=0 and paidDay is null";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, user.getId());
 			result = statement.executeQuery();
 			if(result.next()) {
-				int id = result.getInt("id");
+				int id = result.getInt("id");	
 				Date date = result.getDate("date");
-				bill = new Bill(id, user, date);
+				bill = new Bill();
+				bill.setId(id);
+				bill.setUser(user);
+				bill.setDate(date);
 			}
-		}finally {
+		} finally {
 			close(connection, statement, result);
 		}
-		return bill;
-		
+		return bill;		
+	}
+	
+	public void updateQuantity(int id, int quantity) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = DbConnectProvide.getConnection();
+			String sql = "update billdetail set productQuantity=? "
+					+ "where id=?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, quantity);
+			statement.setInt(2, id);
+			statement.execute();
+		} finally {
+			close(connection, statement, null);
+		}
 	}
 	
 	private void close(Connection connection, Statement statement, ResultSet result) throws SQLException {

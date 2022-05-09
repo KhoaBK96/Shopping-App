@@ -40,9 +40,7 @@ import com.bia.web.utils.NumberTools;
         userService = new UserService(userRepo);
         billRepo = new BillRepository();
         billService = new BillService(billRepo);  
-
     }
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -53,13 +51,9 @@ import com.bia.web.utils.NumberTools;
 	
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 	}
-
 
 	private void addtocart(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int addtocartID = NumberTools.parseIntWithFallback(request.getParameter("addtocartID"));
@@ -68,30 +62,45 @@ import com.bia.web.utils.NumberTools;
 		String email = (String) session.getAttribute("EMAIL");
 		User user = userService.getUserByEmail(email);
 									
-		Product product = productService.getById(addtocartID);
-		
-		
-		
-		Bill bill = billService.getBill(user);
-		
-		bill.setUser(user);
-		
-		
-		
-		for(int i = 0; i < bill.getBillDetails().size(); i++) {
-			int id = bill.getBillDetails().get(i).getProduct().getId();
-			if(id == addtocartID) {
-				break;
-			}else {
-				BillDetail billDetail = new BillDetail();			
-				billDetail.setBill(bill);
+		if(user == null) {
+			response.sendRedirect(request.getContextPath()+"/Signin");
+		}else {
+			Product product = productService.getById(addtocartID);
+			
+			Bill bill = billService.getCurrentBill(user);
+			if(bill == null) {
+				bill = new Bill();
+				bill.setUser(user);
+				Date date = new Date(System.currentTimeMillis());
+				bill.setDate(date);	
+				billService.add(bill);
+			}
+			
+			int billId = bill.getId();
+			
+			Bill fullBill = billService.getById(billId);
+						
+			BillDetail billDetail = new BillDetail();	
+			
+			billDetail.setBill(fullBill);
+			
+			bill.setUser(user);
+			
+			boolean existProduct = false;
+			
+			for(int i = 0; i< fullBill.getBillDetails().size(); i++) {
+				if(fullBill.getBillDetails().get(i).getProduct().getId() == product.getId()) {	
+					existProduct = true;
+				} 												   
+			} 
+			if(existProduct == false) {
 				billDetail.setProduct(product);
 				billDetail.setProductQuantity(1);		
 				billService.addBillDetail(billDetail);
-			}
+			}			
+			response.sendRedirect(request.getContextPath()+"/Shop");
 		}
-					
-		response.sendRedirect(request.getContextPath()+"/Shop");
+		
 	}
 
 }

@@ -71,9 +71,6 @@ public class Bill {
 	}
 	
 	public void addBillDetail(BillDetail billDetail) {
-		if (this.billDetails == null) {
-			this.billDetails = new ArrayList<BillDetail>();
-		}
 		this.billDetails.add(billDetail);
 	}
 

@@ -61,7 +61,7 @@ public class SigninController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("USER", user);
 			session.setAttribute("EMAIL", email);
-			response.sendRedirect(request.getContextPath()+"/Shop");
+			response.sendRedirect(request.getContextPath()+"/Home");
 		}
 	}
 
